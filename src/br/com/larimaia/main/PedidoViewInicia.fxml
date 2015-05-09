@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane  fx:controller="br.com.larimaia.controller.PedidoController" xmlns:fx="http://javafx.com/fxml" id="AnchorPane" prefHeight="700" prefWidth="700" >
+    <children>
+        <Label text="Pedido" layoutX="350" layoutY="0" />
+        
+        <Label text="Local Contrato: " layoutX="10" layoutY="40" />
+        <TextField  fx:id="localContrato" prefWidth="180" prefHeight="5"   layoutX="100" layoutY="35" />
+        
+        <Label text="Data do Pedido: " layoutX="10" layoutY="80" />
+        <DatePicker fx:id="dataPedido" prefWidth="180" prefHeight="5"   layoutX="100" layoutY="75" />
+        
+        <Label text="Cliente:" layoutX="10" layoutY="120"/>
+        <ComboBox fx:id="comboBoxClientes"   prefWidth="180" prefHeight="5"  layoutX="100" layoutY="115"/>
+        
+        <Label text="Cerimonial:" layoutX="10" layoutY="160"/>
+        <TextField fx:id="cerimonial" prefWidth="180"  prefHeight="5" layoutX="100" layoutY="155"/>
+        
+        <Label text="Tipo:" layoutX="10" layoutY="200"/>
+        <ComboBox fx:id="comboBoxTipo" prefWidth="180" prefHeight="5"  layoutX="100" layoutY="195"/>
+        
+        
+        <Label text="Hora:" layoutX="10" layoutY="240"/>
+        <TextField fx:id="hora" prefWidth="180" prefHeight="5"  layoutX="100" layoutY="235"/>
+        
+
+        <Label text="Produto:" layoutX="40" layoutY="280"/>
+        <ComboBox fx:id="comboBoxProduto" prefWidth="120" prefHeight="5"  layoutX="40" layoutY="300"/>
+        
+        <Label text="Quantidade:" layoutX="180" layoutY="280"/>
+        <TextField fx:id="qtdproduto" prefWidth="80" prefHeight="5"  layoutX="180" layoutY="300"/>
+        
+        <Label text="Valor:" layoutX="280" layoutY="280"/>
+        <TextField fx:id="valorProduto" prefWidth="80" prefHeight="5"  layoutX="280" layoutY="300"/>
+        
+        <Button text="Adicionar"  fx:id="adicionar" layoutX="400" layoutY="300" />
+                
+        <TableView layoutX="50" layoutY="350" prefHeight="180" > 
+            <columns>
+                <TableColumn fx:id="produto" text="Produto"/>
+                <TableColumn fx:id="qtd" text="Quantidade"/>
+                <TableColumn fx:id="valor" text="Valor"/>
+                <TableColumn fx:id="excluir" text="Excluir"/>
+            </columns>
+        </TableView>
+                
+        <Button text="Salvar" onAction="#salvar" fx:id="salvar" layoutX="600" layoutY="580" />
+        
+       <!-- <Label text="Buscar Pedido" layoutX="50" layoutY="550"/>
+        <TextField fx:id="buscarTodosPedidos" prefWidth="40" prefHeight="5"  layoutX="200" layoutY="550"/>
+        <Button text="Buscar" onAction="#buscarPedidoPorId" fx:id="buscarPedido" layoutX="300" layoutY="550" />-->
+        
+        
+    </children>
+</AnchorPane>
+
