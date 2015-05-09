@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <?import java.net.*?>
 
-<AnchorPane  fx:controller="br.com.larimaia.controller.PedidoController" xmlns:fx="http://javafx.com/fxml" id="AnchorPane" prefHeight="800" prefWidth="850" styleClass="root">
+<AnchorPane  xmlns:fx="http://javafx.com/fxml/1" xmlns:fx="http://javafx.com/fxml/1" xmlns:fx="http://javafx.com/fxml/1" xmlns:fx="http://javafx.com/fxml/1" xmlns:fx="http://javafx.com/fxml/1"   fx:controller="br.com.larimaia.controller.PedidoController"  id="AnchorPane" prefHeight="800" prefWidth="850" styleClass="root">
   <children>
     <Label layoutX="41.0" layoutY="93.0" text="Origem do Pedido:">
       <font>
@@ -25,7 +25,7 @@
     <ComboBox id="combo" fx:id="comboBoxClientes" layoutX="174.0" layoutY="165.0" prefHeight="21.0" prefWidth="250.0"/>
     
     <Label font="$x1" layoutX="468.0" layoutY="92.0" prefHeight="19.000091552734375" text="Cerimonial:" />
-    <TextField layoutX="592.0" layoutY="92.0" prefWidth="233.0" />
+    <TextField fx:id="tfcerimonial"  layoutX="592.0" layoutY="92.0" prefWidth="233.0" />
     
     <Label font="$x1" layoutX="468.0" layoutY="130.0" text="Data do Evento:" />
     <DatePicker fx:id="dataEvento" layoutX="592.0" layoutY="129.0" prefWidth="233.0" />
@@ -58,10 +58,10 @@
     
     <TableView layoutX="41.0" layoutY="431.0" prefHeight="200.0" prefWidth="551.0000999999975">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="249.0" text="Produto" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Quantidade" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Valor" />
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="126.0" text="Excluir" />
+        <TableColumn fx:id="tabColProduto"  maxWidth="5000.0" minWidth="10.0" prefWidth="249.0" text="Produto" />
+        <TableColumn fx:id="tabColQuantidade"   maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Quantidade" />
+        <TableColumn fx:id="tabColValor"  maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Valor" />
+        <TableColumn fx:id="tabColExcluir"   maxWidth="5000.0" minWidth="10.0" prefWidth="126.0" text="Excluir" />
       </columns>
     </TableView>
     
