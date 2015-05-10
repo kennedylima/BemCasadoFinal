@@ -14,7 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PedidoService {
-    private PedidoDAO pedidoDAO;
+    private final PedidoDAO pedidoDAO;
 
     public PedidoService() {
         pedidoDAO = new PedidoDAO();

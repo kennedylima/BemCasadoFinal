@@ -6,10 +6,10 @@ import java.util.List;
 public class Pedido {
     private Integer id;
     private String origemPedido;
-    private Date dataPedido;
+    private String dataPedido;
     private Cliente cliente;
     private String cerimonial;
-    private Date dataEvento;
+    private String dataEvento;
     private TipoEvento tipoEvento;
     private String horaEvento;
     private String indicacao;
@@ -34,11 +34,11 @@ public class Pedido {
         this.origemPedido = origemPedido;
     }
 
-    public Date getDataPedido() {
+    public String getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(String dataPedido) {
         this.dataPedido = dataPedido;
     }
 
@@ -58,11 +58,11 @@ public class Pedido {
         this.cerimonial = cerimonial;
     }
 
-    public Date getDataEvento() {
+    public String getDataEvento() {
         return dataEvento;
     }
 
-    public void setDataEvento(Date dataEvento) {
+    public void setDataEvento(String dataEvento) {
         this.dataEvento = dataEvento;
     }
 

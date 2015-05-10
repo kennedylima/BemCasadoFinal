@@ -3,11 +3,13 @@ package br.com.larimaia.controller;
 
 
 import br.com.larimaia.DAO.PedidoDAO;
+import br.com.larimaia.exception.ServiceException;
 import br.com.larimaia.model.Cliente;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.service.PedidoService;
+import java.awt.HeadlessException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,18 +20,17 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
-import javax.swing.table.TableColumn;
-import javax.swing.text.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 
 public class PedidoController implements Initializable {
     
-    private Pedido pedido;
+    @FXML
+    private TextField tfIndicacao;
     
     @FXML
     private TextField tfOrigemPedido;
-    
-    @FXML
-    private DatePicker tfDataPedido;
     
     @FXML 
     private ComboBox<Cliente> comboBoxClientes;
@@ -39,6 +40,9 @@ public class PedidoController implements Initializable {
     
     @FXML
     private DatePicker dataEvento;
+    
+    @FXML
+    private DatePicker dataPedido;
     
     @FXML 
     private ComboBox<TipoEvento> comboBoxTipo;
@@ -62,14 +66,10 @@ public class PedidoController implements Initializable {
     private TextField tfValor;
 
     @FXML
-    private Button btAdiconar;
+    private Button btAdicionar;
     
     @FXML
     private TextField tfObs;
-    
-    
-    @FXML
-    private Button btnSAl;
         
     @FXML
     private TableView tabela;
@@ -86,17 +86,31 @@ public class PedidoController implements Initializable {
     @FXML
     private TableColumn tabColExcluir;
     
+    PedidoService ps = new PedidoService();
     
     @FXML  
     private void btnSal (ActionEvent e){
-//        PedidoDAO buscar = new PedidoDAO();
-//        buscar.buscarPorId(1);
+        
+        Pedido pedido = new Pedido();
+        
+        pedido.setOrigemPedido(tfOrigemPedido.getText());
+        pedido.setDataPedido(dataPedido.getValue().toString());
+        pedido.setCliente(comboBoxClientes.getValue());
+        pedido.setCerimonial(tfcerimonial.getText());
+        pedido.setDataEvento(dataEvento.getValue().toString());
+        pedido.setTipoEvento(comboBoxTipo.getValue());
+        pedido.setHoraEvento(tfHorarioEvento.getText());
+        pedido.setIndicacao(tfIndicacao.getText());
+        pedido.setLocalEvento(tfLocalEvento.getText());
+        pedido.setEnderecoEvento(tfEndereco.getText());
+        pedido.setObs(tfObs.getText());
+        pedido.setItens(null);
+
         try {
-            pedido =new Pedido();
+            ps.salvar(pedido);
             
-            
-            
-        } catch (Exception exc) {
+            JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
+        } catch (ServiceException | HeadlessException exc) {
             JOptionPane.showMessageDialog(null, exc);
         }
         

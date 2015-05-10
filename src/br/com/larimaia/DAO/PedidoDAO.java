@@ -6,10 +6,11 @@ import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.util.ConexaoUtil;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,10 +48,10 @@ public class PedidoDAO {
                     // Inserindo dados da consulta no objeto ped
                 ped.setId(id);
                 ped.setOrigemPedido(resultadoPedido.getString("origemPedido"));
-                ped.setDataPedido(resultadoPedido.getDate("dataPedido"));
+                ped.setDataPedido(resultadoPedido.getString("dataPedido"));
                 ped.setCerimonial(resultadoPedido.getString("cerimonial"));
                 ped.setCliente((Cliente) resultadoPedido.getObject("nome"));
-                ped.setDataEvento(resultadoPedido.getDate("dataEvento"));
+                ped.setDataEvento(resultadoPedido.getString("dataEvento"));
                 ped.setTipoEvento((TipoEvento) resultadoPedido.getObject("tipoEvento"));
                 ped.setHoraEvento(resultadoPedido.getString("horaEvento"));
                 ped.setIndicacao(resultadoPedido.getString("indicacao"));
@@ -92,10 +93,10 @@ public class PedidoDAO {
                 // Inserindo dados da consulta no objeto ped
                 ped.setId(resultadoPedido.getInt("idpedido"));
                 ped.setOrigemPedido(resultadoPedido.getString("origemPedido"));
-                ped.setDataPedido(resultadoPedido.getDate("dataPedido"));
+                ped.setDataPedido(resultadoPedido.getString("dataPedido"));
                 ped.setCerimonial(resultadoPedido.getString("cerimonial"));
                 ped.setCliente((Cliente) resultadoPedido.getObject("nome"));
-                ped.setDataEvento(resultadoPedido.getDate("dataEvento"));
+                ped.setDataEvento(resultadoPedido.getString("dataEvento"));
                 ped.setTipoEvento((TipoEvento) resultadoPedido.getObject("tipoEvento"));
                 ped.setHoraEvento(resultadoPedido.getString("horaEvento"));
                 ped.setIndicacao(resultadoPedido.getString("indicacao"));
@@ -115,7 +116,7 @@ public class PedidoDAO {
         return null;
     }
 
-    public void salvar(Pedido pedido) {
+    public void salvar(Pedido pedido) throws ParseException {
         if (pedido.getId() == null) {
             cadastrar(pedido);
         } else {
@@ -123,22 +124,27 @@ public class PedidoDAO {
         }
     }
 
-    private void cadastrar(Pedido pedido) {
+    private void cadastrar(Pedido pedido) throws ParseException {
         // falta cadastrar a lista de itens de produto
         String sql;
         sql = "INSERT INTO Pedido(origemPedido,dataPedido,idcliente,"
                 + "cerimonial,dataEvento,idtipoEvento,horaEvento,"
-                + "indicacao,localEvento,enderecoEvento,obs"
+                + "indicacao,localEvento,enderecoEvento,obs)"
                 + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
-
+            
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.sql.Date dataPedido = new java.sql.Date(format.parse(pedido.getDataPedido()).getTime());
+            
+            java.sql.Date dataEvento = new java.sql.Date(format.parse(pedido.getDataEvento()).getTime());
+            
             preparadorSQL.setString(1, pedido.getOrigemPedido());
-            preparadorSQL.setDate(2, (Date) pedido.getDataPedido());
+            preparadorSQL.setDate(2, dataPedido);
             preparadorSQL.setInt(3,pedido.getCliente().getId());
             preparadorSQL.setString(4, pedido.getCerimonial());
-            preparadorSQL.setDate(5, (Date) pedido.getDataEvento());
+            preparadorSQL.setDate(5, dataEvento);
             preparadorSQL.setInt(6, pedido.getTipoEvento().getId());
             preparadorSQL.setString(7, pedido.getHoraEvento());
             preparadorSQL.setString(8, pedido.getIndicacao());
@@ -165,10 +171,10 @@ public class PedidoDAO {
             PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
 
             preparadorSQL.setString(1, pedido.getOrigemPedido());
-            preparadorSQL.setDate(2, (Date) pedido.getDataPedido());
+            preparadorSQL.setString(2, pedido.getDataPedido());
             preparadorSQL.setInt(3,pedido.getCliente().getId());
             preparadorSQL.setString(4, pedido.getCerimonial());
-            preparadorSQL.setDate(5, (Date) pedido.getDataEvento());
+            preparadorSQL.setString(5, pedido.getDataEvento());
             preparadorSQL.setInt(6, pedido.getTipoEvento().getId());
             preparadorSQL.setString(7, pedido.getHoraEvento());
             preparadorSQL.setString(8, pedido.getIndicacao());
