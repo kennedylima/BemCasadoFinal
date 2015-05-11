@@ -9,7 +9,10 @@ import br.com.larimaia.exception.ServiceException;
 import br.com.larimaia.model.Cliente;
 import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -62,7 +65,11 @@ public class PedidoService {
             throw new ServiceException("Campo Tipo é obrigatório!");
         }
 
-       pedidoDAO.salvar(pedido);
+        try {
+            pedidoDAO.salvar(pedido);
+        } catch (ParseException ex) {
+            Logger.getLogger(PedidoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

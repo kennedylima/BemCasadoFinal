@@ -5,23 +5,30 @@ package br.com.larimaia.controller;
 import br.com.larimaia.DAO.PedidoDAO;
 import br.com.larimaia.exception.ServiceException;
 import br.com.larimaia.model.Cliente;
+import br.com.larimaia.model.ItemPedido;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.service.PedidoService;
 import java.awt.HeadlessException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 public class PedidoController implements Initializable {
@@ -64,9 +71,6 @@ public class PedidoController implements Initializable {
             
     @FXML
     private TextField tfValor;
-
-    @FXML
-    private Button btAdicionar;
     
     @FXML
     private TextField tfObs;
@@ -115,6 +119,29 @@ public class PedidoController implements Initializable {
         }
         
         
+    }
+    private static final List<ItemPedido> prod = new ArrayList<>();
+    @FXML
+    private void btnAdd(ActionEvent e){
+        
+        ItemPedido ip = new ItemPedido();
+        
+        ip.setProduto(comboBoxProduto.getValue());
+        ip.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
+        ip.setValor(Double.parseDouble(comboBoxProduto.getValue().getValor()));
+        
+        prod.add(ip);
+        
+        tabColProduto.setCellValueFactory(new PropertyValueFactory<>("produto"));
+        tabColValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+        tabColQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
+        
+        ObservableList<ItemPedido> dados =
+        FXCollections.observableArrayList(
+                prod
+        );
+        
+        tabela.setItems(dados);
     }
     
     @FXML  
