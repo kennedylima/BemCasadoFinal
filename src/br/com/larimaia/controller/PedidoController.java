@@ -15,13 +15,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
@@ -97,6 +97,12 @@ public class PedidoController implements Initializable {
     private Boolean excluir;
     
     PedidoService ps = new PedidoService();
+    CheckBoxTableCell<TestObject, Boolean> cbExcluir;// = new CheckBoxTableCell<TestObject, Boolean>();
+    
+    
+   
+
+   
     
     @FXML  
     private void btnSal (ActionEvent e){
@@ -144,7 +150,8 @@ public class PedidoController implements Initializable {
         tabColExcluir.setCellFactory(new Callback<TableColumn<TestObject, Boolean>, TableCell<TestObject, Boolean>>() {
             @Override
             public TableCell<TestObject, Boolean> call(TableColumn<TestObject, Boolean> p) {
-                return new CheckBoxTableCell<TestObject, Boolean>();
+                cbExcluir = new CheckBoxTableCell<TestObject, Boolean>();
+                return cbExcluir;
             }
         });
         // Inserindo informações na tabela
@@ -175,7 +182,13 @@ public class PedidoController implements Initializable {
         comboBoxProduto.setItems(PedidoService.buscarProdutos());
         comboBoxTipo.setItems(PedidoService.buscarTipoEventos());
          
-       
+        //evento de exclusao de linha da tabela em teste
+//       cbExcluir.selectedProperty().addListener(new ChangeListener<Boolean>() {
+//                @Override
+//                public void changed(ObservableValue ov,Boolean old_val, Boolean new_val) {
+//                    System.err.println("valor excluir = "+cbExcluir.getItem());
+//               }
+//       });
     }  
     
     @FXML
