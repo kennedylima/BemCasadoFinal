@@ -1,14 +1,26 @@
 package br.com.larimaia.model;
 
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.scene.control.CheckBox;
+
 public class ItemPedido {
     private Integer id;
     private Produto produto;
     private Integer quantidade;
     private Double valor;
     private Pedido pedido;
+    private Boolean excluir;
 
     public Integer getId() {
         return id;
+    }
+
+    public Boolean isExcluir() {
+        return excluir;
+    }
+
+    public void setExcluir(Boolean excluir) {
+        this.excluir = excluir;
     }
 
     public void setId(Integer id) {
@@ -46,4 +58,29 @@ public class ItemPedido {
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
+
+    private  SimpleBooleanProperty verificado =  new  SimpleBooleanProperty ( false ); 
+   // outras colunas aqui
+
+    public static class Item {
+   private SimpleBooleanProperty checked = new SimpleBooleanProperty(false);
+   // other columns here
+
+    public SimpleBooleanProperty checkedProperty() {
+        return this.checked;
+    }
+
+    public java.lang.Boolean getChecked() {
+        return this.checkedProperty().get();
+    }
+
+    public void setChecked(final java.lang.Boolean checked) {
+        this.checkedProperty().set(checked);
+    }
+
+    // getter/setter for other columns
+
+}
+    
+    
 }

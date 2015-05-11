@@ -1,10 +1,12 @@
 package br.com.larimaia.DAO;
 
+import br.com.larimaia.controller.ItemPedidoController;
 import br.com.larimaia.model.Cliente;
 import br.com.larimaia.model.ItemPedido;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.util.ConexaoUtil;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -152,6 +154,8 @@ public class PedidoDAO {
             preparadorSQL.setString(10, pedido.getEnderecoEvento());
             preparadorSQL.setString(11, pedido.getObs());
             
+            ItemPedidoController ip = new ItemPedidoController();
+           // ip.salvar((ItemPedido) pedido.getItens());
             preparadorSQL.execute();
             preparadorSQL.close();
 

@@ -5,7 +5,6 @@ import br.com.larimaia.DAO.ClienteDAO;
 import br.com.larimaia.DAO.ProdutoDAO;
 import br.com.larimaia.model.Cliente;
 import br.com.larimaia.model.Produto;
-import br.com.larimaia.service.ClienteController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;

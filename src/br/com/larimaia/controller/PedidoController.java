@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,12 +24,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 
 public class PedidoController implements Initializable {
@@ -88,7 +91,10 @@ public class PedidoController implements Initializable {
     private TableColumn tabColValor;
     
     @FXML
-    private TableColumn tabColExcluir;
+    private TableColumn  tabColExcluir;
+    
+    @FXML
+    private Boolean excluir;
     
     PedidoService ps = new PedidoService();
     
@@ -108,8 +114,7 @@ public class PedidoController implements Initializable {
         pedido.setLocalEvento(tfLocalEvento.getText());
         pedido.setEnderecoEvento(tfEndereco.getText());
         pedido.setObs(tfObs.getText());
-        pedido.setItens(null);
-
+        pedido.setItens(prod);
         try {
             ps.salvar(pedido);
             
@@ -129,13 +134,20 @@ public class PedidoController implements Initializable {
         ip.setProduto(comboBoxProduto.getValue());
         ip.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
         ip.setValor(Double.parseDouble(comboBoxProduto.getValue().getValor()));
-        
+        ip.setExcluir(excluir);
         prod.add(ip);
         
         tabColProduto.setCellValueFactory(new PropertyValueFactory<>("produto"));
         tabColValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         tabColQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        
+        // Inserindo checkbox na coluna excluir
+        tabColExcluir.setCellFactory(new Callback<TableColumn<TestObject, Boolean>, TableCell<TestObject, Boolean>>() {
+            @Override
+            public TableCell<TestObject, Boolean> call(TableColumn<TestObject, Boolean> p) {
+                return new CheckBoxTableCell<TestObject, Boolean>();
+            }
+        });
+        // Inserindo informações na tabela
         ObservableList<ItemPedido> dados =
         FXCollections.observableArrayList(
                 prod
@@ -160,8 +172,8 @@ public class PedidoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         comboBoxClientes.setItems(PedidoService.buscarClientes());
-         comboBoxProduto.setItems(PedidoService.buscarProdutos());
-         comboBoxTipo.setItems(PedidoService.buscarTipoEventos());
+        comboBoxProduto.setItems(PedidoService.buscarProdutos());
+        comboBoxTipo.setItems(PedidoService.buscarTipoEventos());
          
        
     }  
@@ -171,6 +183,14 @@ public class PedidoController implements Initializable {
         
         
     }
+
+    private static class TestObject {
+
+        public TestObject() {
+        }
+    }
     
+    
+
     
 }
