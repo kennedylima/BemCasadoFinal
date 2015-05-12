@@ -10,16 +10,7 @@ public class ItemPedido {
     private Integer quantidade;
     private Double valor;
     private Pedido pedido;
-    private CheckBox excluir;
-
-    public CheckBox getExcluir() {
-        return excluir;
-    }
-
-    public void setExcluir(CheckBox excluir) {
-        this.excluir = excluir;
-    }
-
+    
     public Integer getId() {
         return id;
     }

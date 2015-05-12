@@ -106,6 +106,10 @@ public class PedidoController implements Initializable {
     @FXML
     private Button btexcluir;
     
+    @FXML
+    private Button btnSAl;
+    
+        
     private static List<ItemPedido> prod = new ArrayList<>();
      
     private PedidoService ps = new PedidoService();
@@ -122,6 +126,7 @@ public class PedidoController implements Initializable {
         pedido.setOrigemPedido(tfOrigemPedido.getText());
         pedido.setDataPedido(dataPedido.getValue().toString());
         pedido.setCliente(comboBoxClientes.getValue());
+        pedido.setIndicacao(tfIndicacao.getText());
         pedido.setCerimonial(tfcerimonial.getText());
         pedido.setDataEvento(dataEvento.getValue().toString());
         pedido.setTipoEvento(comboBoxTipo.getValue());
@@ -133,8 +138,13 @@ public class PedidoController implements Initializable {
         pedido.setItens(prod);
         try {
             ps.salvar(pedido);
+            ps.setarIdDoPedido(pedido);
+            ps.salvarListaItensPedido(dados);
             
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
+            
+            limparTela();
+            
         } catch (ServiceException | HeadlessException exc) {
             JOptionPane.showMessageDialog(null, exc);
         }
@@ -221,12 +231,31 @@ public class PedidoController implements Initializable {
         
     }  
     
-    // metodo que ainda será implementado
-    @FXML
-    public void buscarNomeClientes(){
-        
-        
-    }
+    public void limparTela(){
+    tfIndicacao.setText("");
+    tfOrigemPedido.setText("");
+//    comboBoxClientes;
+//    tfcerimonial;
+//    dataEvento;
+//    dataPedido;
+//    comboBoxTipo;
+//    tfHorarioEvento;
+//    TextField tfLocalEvento;
+//    tfEndereco;
+//    comboBoxProduto;
+//    tfQuantidade;
+//    tfValor;
+//    tfObs;
+//    tabela;
+//    tabColProduto;
+//    tabColQuantidade;
+//    tabColValor;
+//    tabColExcluir;
+//    btexcluir;
+//    btnSAl;
+//    
+    }   
+    
 
     
 }

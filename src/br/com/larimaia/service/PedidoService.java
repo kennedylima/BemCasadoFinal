@@ -7,6 +7,7 @@ import br.com.larimaia.DAO.TipoEventoDAO;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.exception.ServiceException;
 import br.com.larimaia.model.Cliente;
+import br.com.larimaia.model.ItemPedido;
 import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
 import java.text.ParseException;
@@ -105,6 +106,14 @@ public class PedidoService {
                 relacaoTipoevento = FXCollections.observableArrayList( tipodao.buscarTodosOsTiposDeEventos());
 
         return relacaoTipoevento;
+    }
+    
+    public void setarIdDoPedido(Pedido pedido){
+         pedidoDAO.setarIdDoPedidoCadastrado(pedido);
+    }
+
+    public void salvarListaItensPedido(ObservableList<ItemPedido> dados) {
+        pedidoDAO.salvarListaDeItensPedido(dados);
     }
     
 }
