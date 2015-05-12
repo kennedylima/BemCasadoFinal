@@ -6,7 +6,6 @@ import br.com.larimaia.model.ItemPedido;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.util.ConexaoUtil;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +14,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 
 public class PedidoDAO {
 
@@ -209,6 +210,40 @@ public class PedidoDAO {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    
+    
+    public void setarIdDoPedidoCadastrado(Pedido pedido) {
+     String sql = "SELECT max(idpedido) from pedido;";
+     
+        try {
+            PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
+             ResultSet resultadoPedido = preparadorSQL.executeQuery();
+            pedido.setId(resultadoPedido.getInt("idpedido"));
+            preparadorSQL.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+
+    //arrumar esse método
+    public void salvarListaDeItensPedido(ObservableList<ItemPedido> dados) {
+//        String sql = "INSERT INTO itempedido_pedido VALUES (?,?)"
+//                + "VALUES (?,?)";
+//        try {
+//            PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
+//
+//            for (ItemPedido lista: itens) {
+//            preparadorSQL.setInt(1, pedido.getId());
+//            preparadorSQL.setInt(2, itens);
+//            preparadorSQL.execute();
+//            }
+//            preparadorSQL.close();
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
 }
