@@ -11,30 +11,24 @@ import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.service.PedidoService;
 import java.awt.HeadlessException;
-import java.math.RoundingMode;
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
 
 
 public class PedidoController implements Initializable {
@@ -94,16 +88,29 @@ public class PedidoController implements Initializable {
     private TableColumn tabColValor;
     
     @FXML
-    private TableColumn  tabColExcluir;
+    private Button btexcluir;
     
-    @FXML
-    private Boolean excluir;
+    private static final List<ItemPedido> prod = new ArrayList<>();
+     
+    private PedidoService ps = new PedidoService();
     
-    PedidoService ps = new PedidoService();
-    CheckBoxTableCell<TestObject, Boolean> cbExcluir;// = new CheckBoxTableCell<TestObject, Boolean>();
+    private ObservableList<ItemPedido> dados;
     
     
-   
+    
+   @FXML
+   private void excluir(ActionEvent e){
+       
+//Alguns comandos que encontrei sobre excluir linha da tabela
+    // pega a linha da tabela
+       //tabela.getSelectionModel().getSelectedItem();
+       
+      // int idTab = tabela.getSelectionModel().getFocusedIndex();
+//       dados.remove(idTab);
+       //tabela.getSelectionModel().clearSelection(row, tabColValor);
+//       tabela.getItems().remove(idTab);
+//       tabela.setItems(dados);
+   }
 
    
     
@@ -134,7 +141,7 @@ public class PedidoController implements Initializable {
         
         
     }
-    private static final List<ItemPedido> prod = new ArrayList<>();
+   
     @FXML
     private void btnAdd(ActionEvent e){
         
@@ -144,21 +151,14 @@ public class PedidoController implements Initializable {
         ip.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
         ip.setValor(comboBoxProduto.getValue().getValor()*ip.getQuantidade());
         System.out.println(ip.getValor());
-        ip.setExcluir(excluir);
+        
         prod.add(ip);
+        
         
         tabColProduto.setCellValueFactory(new PropertyValueFactory<>("produto"));
         tabColValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
         tabColQuantidade.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
-        // Inserindo checkbox na coluna excluir
-        tabColExcluir.setCellFactory(new Callback<TableColumn<TestObject, Boolean>, TableCell<TestObject, Boolean>>() {
-            @Override
-            public TableCell<TestObject, Boolean> call(TableColumn<TestObject, Boolean> p) {
-                cbExcluir = new CheckBoxTableCell<TestObject, Boolean>();
-                return cbExcluir;
-            }
-        });
-        // Inserindo informações na tabela
+        
         ObservableList<ItemPedido> dados =
         FXCollections.observableArrayList(
                 prod
@@ -185,7 +185,7 @@ public class PedidoController implements Initializable {
         comboBoxClientes.setItems(PedidoService.buscarClientes());
         comboBoxProduto.setItems(PedidoService.buscarProdutos());
         comboBoxTipo.setItems(PedidoService.buscarTipoEventos());
-         
+        tabela.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); 
     }  
     
     @FXML

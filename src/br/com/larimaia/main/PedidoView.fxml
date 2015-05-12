@@ -47,10 +47,10 @@
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="249.0" text="Produto" fx:id="tabColProduto" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="80.0" text="Quantidade" fx:id="tabColQuantidade" />
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="95.0" text="Valor" fx:id="tabColValor" />
-        <TableColumn editable="true" maxWidth="5000.0" minWidth="10.0" prefWidth="126.0" text="Excluir" fx:id="tabColExcluir"  />
       </columns>
     </TableView>
     <Button id="btnSAl" fx:id="salvar" font="$x1" layoutX="603.0" layoutY="652.0" mnemonicParsing="false" onAction="#btnSal" prefHeight="30.0" prefWidth="131.0" text="Salvar" />
+    <Button text="Excluir" onAction="#excluir" fx:id="btexcluir" layoutX="550" layoutY="670" />   
     <Label layoutX="41.0" layoutY="14.0" text="Lari Maia - Pedido" textAlignment="LEFT">
       <font>
         <Font size="30.0" />

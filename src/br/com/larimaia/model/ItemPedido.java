@@ -9,18 +9,9 @@ public class ItemPedido {
     private Integer quantidade;
     private Double valor;
     private Pedido pedido;
-    private Boolean excluir;
 
     public Integer getId() {
         return id;
-    }
-
-    public Boolean isExcluir() {
-        return excluir;
-    }
-
-    public void setExcluir(Boolean excluir) {
-        this.excluir = excluir;
     }
 
     public void setId(Integer id) {
