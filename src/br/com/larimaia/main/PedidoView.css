@@ -5,3 +5,8 @@
     -fx-text-fill: #000000;
     
 }
+
+#msgExclui{
+    -fx-font-size: 10;
+    -fx-font-weight: normal;
+}

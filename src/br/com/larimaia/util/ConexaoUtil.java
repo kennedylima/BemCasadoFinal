@@ -11,7 +11,7 @@ public class ConexaoUtil {
     public static Connection getConnection() {
         String url = "jdbc:postgresql://localhost:5432/LariMaia";
         String usuario = "postgres";
-        String senha = "root";
+        String senha = "postgres";
         try {
             Connection connection = DriverManager.getConnection(url,usuario, senha);
             System.out.println("Conectado com Sucesso !!");
