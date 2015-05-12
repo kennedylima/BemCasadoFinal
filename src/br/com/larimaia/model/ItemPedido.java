@@ -2,6 +2,7 @@ package br.com.larimaia.model;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.control.CheckBox;
+import javax.swing.JCheckBox;
 
 public class ItemPedido {
     private Integer id;
@@ -9,6 +10,15 @@ public class ItemPedido {
     private Integer quantidade;
     private Double valor;
     private Pedido pedido;
+    private CheckBox excluir;
+
+    public CheckBox getExcluir() {
+        return excluir;
+    }
+
+    public void setExcluir(CheckBox excluir) {
+        this.excluir = excluir;
+    }
 
     public Integer getId() {
         return id;
