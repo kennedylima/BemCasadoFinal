@@ -32,7 +32,7 @@ public class ProdutoDAO {
                 Produto prod = new Produto();
                 prod.setId(resultado.getInt("idproduto"));
                 prod.setDescricao(resultado.getString("descricao"));
-                prod.setValor(resultado.getString("valor"));
+                prod.setValor(resultado.getDouble("valor"));
                 produtos.add(prod);
             }
             preparadorsql.close();
@@ -57,7 +57,7 @@ public class ProdutoDAO {
             while(resultado.next()){
                 prod.setId(resultado.getInt("idproduto"));
                 prod.setDescricao(resultado.getString("descricao"));
-                prod.setValor(resultado.getString("valor"));
+                prod.setValor(resultado.getDouble("valor"));
                 //produtos.add(prod);
             }
             preparadorsql.close();
@@ -89,7 +89,7 @@ public class ProdutoDAO {
             
             preparadorsql.setString(1,"default");
             preparadorsql.setString(2,produto.getDescricao());
-            preparadorsql.setInt(3,Integer.parseInt(produto.getValor()));
+            preparadorsql.setDouble(3,produto.getValor());
             preparadorsql.execute();
             preparadorsql.close();
             
@@ -107,7 +107,7 @@ public class ProdutoDAO {
             PreparedStatement preparadorsql = conexao.prepareStatement(sql);
            
             preparadorsql.setString(1,produto.getDescricao());
-            preparadorsql.setInt(2,Integer.parseInt(produto.getValor()));
+            preparadorsql.setDouble(2,produto.getValor());
             preparadorsql.execute();
             preparadorsql.close();
             
