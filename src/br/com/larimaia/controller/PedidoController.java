@@ -11,7 +11,10 @@ import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
 import br.com.larimaia.service.PedidoService;
 import java.awt.HeadlessException;
+import java.math.RoundingMode;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -139,7 +142,8 @@ public class PedidoController implements Initializable {
         
         ip.setProduto(comboBoxProduto.getValue());
         ip.setQuantidade(Integer.parseInt(tfQuantidade.getText()));
-        ip.setValor(Double.parseDouble(comboBoxProduto.getValue().getValor()));
+        ip.setValor(comboBoxProduto.getValue().getValor()*ip.getQuantidade());
+        System.out.println(ip.getValor());
         ip.setExcluir(excluir);
         prod.add(ip);
         
@@ -182,13 +186,6 @@ public class PedidoController implements Initializable {
         comboBoxProduto.setItems(PedidoService.buscarProdutos());
         comboBoxTipo.setItems(PedidoService.buscarTipoEventos());
          
-        //evento de exclusao de linha da tabela em teste
-//       cbExcluir.selectedProperty().addListener(new ChangeListener<Boolean>() {
-//                @Override
-//                public void changed(ObservableValue ov,Boolean old_val, Boolean new_val) {
-//                    System.err.println("valor excluir = "+cbExcluir.getItem());
-//               }
-//       });
     }  
     
     @FXML

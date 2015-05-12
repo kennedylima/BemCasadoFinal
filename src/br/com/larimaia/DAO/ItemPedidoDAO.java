@@ -44,7 +44,7 @@ public class ItemPedidoDAO {
             PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
              preparadorSQL.setInt(1, item.getPedido().getId());
              preparadorSQL.setInt(2, item.getQuantidade());
-             preparadorSQL.setDouble(3, (item.getValor()*item.getQuantidade()));
+             preparadorSQL.setDouble(3, (item.getValor()));
             
             preparadorSQL.executeQuery();
             preparadorSQL.close();
