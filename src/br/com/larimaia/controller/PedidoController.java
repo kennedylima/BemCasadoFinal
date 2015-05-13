@@ -138,8 +138,8 @@ public class PedidoController implements Initializable {
         pedido.setItens(prod);
         try {
             ps.salvar(pedido);
-            ps.setarIdDoPedido(pedido);
-            ps.salvarListaItensPedido(dados);
+            pedido.setId(ps.setarIdDoPedido());
+            ps.salvarListaItensPedido(pedido.getId(),dados);
             
             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             

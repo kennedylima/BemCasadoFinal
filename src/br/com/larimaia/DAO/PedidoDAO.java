@@ -213,37 +213,41 @@ public class PedidoDAO {
     }
     
     
-    public void setarIdDoPedidoCadastrado(Pedido pedido) {
-     String sql = "SELECT max(idpedido) from pedido;";
-     
+    public int setarIdDoPedidoCadastrado() {
+     String sql = "SELECT max(idpedido) as idpedido from pedido;";
+     int id =0;
         try {
             PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
-             ResultSet resultadoPedido = preparadorSQL.executeQuery();
-            pedido.setId(resultadoPedido.getInt("idpedido"));
+            ResultSet resultado = preparadorSQL.executeQuery();
+            while(resultado.next()){
+            id = resultado.getInt("idpedido");
+            }
             preparadorSQL.close();
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }   
+        System.out.println("id = "+id);
+        return id;
     }
 
-    //arrumar esse método
-    public void salvarListaDeItensPedido(ObservableList<ItemPedido> dados) {
-//        String sql = "INSERT INTO itempedido_pedido VALUES (?,?)"
-//                + "VALUES (?,?)";
-//        try {
-//            PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
-//
-//            for (ItemPedido lista: itens) {
-//            preparadorSQL.setInt(1, pedido.getId());
-//            preparadorSQL.setInt(2, itens);
-//            preparadorSQL.execute();
+    public void salvarListaDeItensPedido(int pedidoid ,ObservableList<ItemPedido> dados) {
+        String sql = "INSERT INTO itempedido_pedido VALUES (?,?)";
+
+        try {
+            PreparedStatement preparadorSQL = conexao.prepareStatement(sql);
+               
+//            for ( dados in ) {
+//            preparadorSQL.setInt(1, pedidoid);
+//            preparadorSQL.setInt(2, lista);
 //            }
-//            preparadorSQL.close();
-//            
-//        } catch (SQLException ex) {
-//            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+            preparadorSQL.execute();
+            preparadorSQL.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PedidoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

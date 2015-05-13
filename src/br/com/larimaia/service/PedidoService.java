@@ -108,12 +108,12 @@ public class PedidoService {
         return relacaoTipoevento;
     }
     
-    public void setarIdDoPedido(Pedido pedido){
-         pedidoDAO.setarIdDoPedidoCadastrado(pedido);
+    public int setarIdDoPedido(){
+         return pedidoDAO.setarIdDoPedidoCadastrado();
     }
 
-    public void salvarListaItensPedido(ObservableList<ItemPedido> dados) {
-        pedidoDAO.salvarListaDeItensPedido(dados);
+    public void salvarListaItensPedido(int pedidoid,ObservableList<ItemPedido> dados) {
+        pedidoDAO.salvarListaDeItensPedido(pedidoid,dados);
     }
     
 }
