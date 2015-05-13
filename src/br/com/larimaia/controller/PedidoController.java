@@ -2,6 +2,7 @@
 package br.com.larimaia.controller;
 
 
+import br.com.larimaia.DAO.ItemPedidoDAO;
 import br.com.larimaia.DAO.PedidoDAO;
 import br.com.larimaia.exception.ServiceException;
 import br.com.larimaia.model.Cliente;
@@ -9,39 +10,30 @@ import br.com.larimaia.model.ItemPedido;
 import br.com.larimaia.model.Pedido;
 import br.com.larimaia.model.Produto;
 import br.com.larimaia.model.TipoEvento;
+import br.com.larimaia.service.ItemPedidoService;
 import br.com.larimaia.service.PedidoService;
 import java.awt.HeadlessException;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
-import static javafx.scene.input.KeyCode.S;
-import static javafx.scene.input.KeyCode.T;
-import javafx.util.Callback;
-import javax.swing.JCheckBox;
-import static javax.swing.text.html.HTML.Tag.S;
 
 
 public class PedidoController implements Initializable {
@@ -108,15 +100,18 @@ public class PedidoController implements Initializable {
     
     @FXML
     private Button btnSAl;
-    
         
     private static List<ItemPedido> prod = new ArrayList<>();
-     
+    
     private PedidoService ps = new PedidoService();
     
+    private ItemPedidoController ips = new ItemPedidoController();
+    
     private ObservableList<ItemPedido> dados;
+    
     public Set<ItemPedido> setExcluir;
-   
+    
+    public List<ItemPedido> listaProdutos;
     
     @FXML  
     private void btnSal (ActionEvent e){
@@ -139,16 +134,21 @@ public class PedidoController implements Initializable {
         try {
             ps.salvar(pedido);
             pedido.setId(ps.setarIdDoPedido());
-            ps.salvarListaItensPedido(pedido.getId(),dados);
             
-            JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
+            //inserindo os itens da tableview na List listaProdutos
+            listaProdutos = tabela.getItems();
+            ItemPedidoController ipc = new ItemPedidoController();
+            //estrutura de repetição que salva cada linha da lista no banco
+            for(ItemPedido i : listaProdutos){
+                ipc.salvar(i);
+            }
+             JOptionPane.showMessageDialog(null, "Pedido salvo com sucesso!");
             
             limparTela();
             
         } catch (ServiceException | HeadlessException exc) {
-            JOptionPane.showMessageDialog(null, exc);
+            JOptionPane.showMessageDialog(null,exc);
         }
-        
         
     }
    
@@ -166,8 +166,8 @@ public class PedidoController implements Initializable {
         resultado = resultado/100;
         ip.setValor(comboBoxProduto.getValue().getValor()* ip.getQuantidade());
         System.out.println(ip.getValor());
-        
-        
+        ip.setId(comboBoxProduto.getValue().getId());
+        System.out.println(ip.getId());
         // Adicionado o objeto ip dentro da lista de item pedido
         prod.add(ip);
         
@@ -212,7 +212,6 @@ public class PedidoController implements Initializable {
         
         //Inserindo a lista prod dentro da table view
         tabela.getItems().addAll(prod);
-        
         
     }     
             
